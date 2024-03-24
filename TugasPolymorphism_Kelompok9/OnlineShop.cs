@@ -10,15 +10,25 @@
             this.nama = nama;
             this.harga = harga;
         }
+
+        public virtual decimal Ongkir()
+        {
+            return 0;
+        }
     }
 
     class Elektronik : Produk
     {
-        public readonly decimal berat;
+        public readonly double berat;
 
-        public Elektronik(decimal berat,string nama,decimal harga) : base(nama, harga) 
+        public Elektronik(double berat,string nama,decimal harga) : base(nama, harga) 
         { 
             this.berat = berat;
+        }
+
+        public override decimal Ongkir()
+        {
+            return (decimal)(berat * 10000);
         }
     }
 
@@ -26,7 +36,11 @@
     {
         public Pakaian(string nama,decimal harga) : base (nama, harga)
         {
+        }
 
+        public override decimal Ongkir()
+        {
+            return 7000;
         }
     }
 
@@ -34,7 +48,11 @@
     {
         public Buku(string nama,decimal harga) : base(nama, harga)
         {
+        }
 
+        public override decimal Ongkir()
+        {
+            return 5000;
         }
     }
 
@@ -73,6 +91,19 @@
                 }
             }
             return total;
+        }
+
+        public decimal hitungTotalOngkir()
+        {
+            decimal totalOngkir = 0;
+            foreach (var item in items)
+            {
+                if (item != null)
+                {
+                    totalOngkir += item.Ongkir();
+                }
+            }
+            return totalOngkir;
         }
     }
 }

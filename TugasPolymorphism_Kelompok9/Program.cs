@@ -9,12 +9,14 @@ class Program
         KeranjangBelanja keranjang = new KeranjangBelanja(5);
         Elektronik laptop = new Elektronik(5, "Razer Blade 18", 95000000);
         Pakaian baju = new Pakaian("T-Shirt Console.WriteLine", 50000);
-        Buku komik = new Buku("Monster",150000);
+        Buku komik = new Buku("Monster", 150000);
         keranjang.tambahItem(laptop);
         keranjang.tambahItem(baju);
-        keranjang.tambahItem(komik); 
+        keranjang.tambahItem(komik);
         decimal total = keranjang.hitungTotal();
-        Console.WriteLine("Total harga pada keranjang belanja ini adalah :" + total);
+        Console.WriteLine($"Total harga pada keranjang belanja ini adalah : {+ total:c}");
+        decimal totalOngkir = keranjang.hitungTotalOngkir();
+        Console.WriteLine($"Dengan total ongkir sebanyak : {+ totalOngkir:c}");
 
         //Sistem Perbankan
 
