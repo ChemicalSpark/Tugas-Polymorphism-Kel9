@@ -50,7 +50,7 @@ class Program
 
 
         //Sistem Perbankan        
-        Console.WriteLine("\n == Sistem Perbankan == \n");
+        Console.WriteLine("\n\n == Sistem Perbankan == \n");
 
 
         // Membuat objek RekeningTabungan
@@ -102,7 +102,7 @@ class Program
 
 
         //Aplikasi Menggambar
-        Console.WriteLine("\n---Aplikasi Menggambar---");
+        Console.WriteLine("\n\n---Aplikasi Menggambar---");
         Canvas canvas = new Canvas();
 
         canvas.CreateShape(new SegiTiga("sama kaki", "merah") { JenisSegiTiga = "sama kaki", Warna = "Merah" });
