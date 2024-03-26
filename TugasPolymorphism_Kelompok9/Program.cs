@@ -1,6 +1,7 @@
 
 ﻿using Olshop;
 using Bank;
+using AplikasiMenggambar;
 
 
 class Program
@@ -99,7 +100,12 @@ class Program
 
 
         //Aplikasi Menggambar
+        Canvas canvas = new Canvas();
 
+        canvas.CreateShape(new SegiTiga("sama kaki", "merah") { JenisSegiTiga = "sama kaki", Warna = "Merah" });
+        canvas.CreateShape(new Lingkaran(7, "kuning") { Diameter = 7, Warna = "kuning" });
+        canvas.CreateShape(new Persegi(8, "biru") { Sisi = 8, Warna = "biru" });
+        canvas.CreateShape(new JajarGenjang(9, "ungu") { Diagonal = 9, Warna = "ungu" });
 
 
     }
