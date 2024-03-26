@@ -82,7 +82,7 @@ namespace Bank
             else if (jumlah > saldo && (saldo - jumlah) >= -batasPenarikan)
             {
                 saldo -= jumlah;
-                Console.WriteLine($"Penarikan sebesar {jumlah:C} berhasil. Penarikan melebihi saldo Anda. Saldo sekarang: ${saldo}");
+                Console.WriteLine($"Penarikan sebesar {jumlah:C} berhasil. Penarikan melebihi saldo yang dimiliki!. Saldo sekarang: ${saldo}");
             }
             // Jika jumlah penarikan melebihi batas penarikan
             else if (jumlah > saldo && (saldo - jumlah) < -batasPenarikan)
