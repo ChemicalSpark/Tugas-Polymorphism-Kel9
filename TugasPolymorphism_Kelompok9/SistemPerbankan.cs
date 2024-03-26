@@ -1,112 +1,113 @@
-﻿namespace Bank
+﻿using System;
+using System.ComponentModel.Design;
+using System.Globalization; // Add this namespace for CultureInfo
+
+namespace Bank
 {
-    public abstract class Rekening
+    abstract class Rekening
     {
-        public string Pemilik;
-        public double Saldo;
+        protected string pemilik;
+        protected double saldo;
 
         public Rekening(string pemilik, double saldo)
         {
-            Pemilik = pemilik;
-            Saldo = saldo;
+            this.pemilik = pemilik;
+            this.saldo = saldo;
         }
 
-        public virtual void Setor(double jumlah)
+        public double Saldo { get { return saldo; } }
+
+
+        public virtual void Setoran(double jumlah)
         {
-            Saldo += jumlah;
+            saldo += jumlah;
+            Console.WriteLine($"Setoran sebesar {jumlah:C} berhasil. Saldo sekarang {saldo:C}");
         }
 
-        public virtual bool Tarik(double jumlah)
+        public abstract void Penarikan(double jumlah);
+        public abstract void CekSaldo();
+    }
+
+    class RekeningTabungan : Rekening
+    {
+        private double bunga;
+
+        public RekeningTabungan(string pemilik, double saldo, double bunga) : base(pemilik, saldo)
         {
-            if (jumlah <= Saldo)
+            this.bunga = bunga;
+        }
+
+        public override void Setoran(double jumlah)
+        {
+            base.Setoran(jumlah);
+            Console.WriteLine($"Bunga {bunga * 100}% telah ditambahkan. Saldo sekarang {saldo:C}");
+        }
+
+        public override void Penarikan(double jumlah)
+        {
+            if (jumlah > saldo)
+                Console.WriteLine("Saldo tidak mencukupi untuk penarikan.");
+            else
             {
-                Saldo -= jumlah;
-                return true;
+                saldo -= jumlah;
+                Console.WriteLine($"Penarikan sebesar {jumlah:C} berhasil. Saldo sekarang {saldo:C}");
             }
-            return false;
         }
 
-        public virtual bool Transfer(Rekening tujuan, double jumlah)
+        public override void CekSaldo()
         {
-            if (jumlah <= Saldo)
-            {
-                Saldo -= jumlah;
-                tujuan.Setor(jumlah);
-                return true;
-            }
-            return false;
-        }
-
-        public virtual double CekSaldo()
-        {
-            return Saldo;
+            Console.WriteLine($"Saldo {pemilik}: {saldo:C}");
         }
     }
 
-    public class RekeningTabungan : Rekening
+
+    class RekeningGiro : Rekening
     {
-        public double Bunga;
+        private double batasPenarikan;
 
-        public RekeningTabungan(string pemilik, double saldo, double bunga)
-            : base(pemilik, saldo)
+        public RekeningGiro(string pemilik, double saldo, double batasPenarikan) : base(pemilik, saldo)
         {
-            Bunga = bunga;
+            this.batasPenarikan = batasPenarikan;
         }
 
-        public override void Setor(double jumlah)
+        public override void Penarikan(double jumlah)
         {
-            base.Setor(jumlah);
-            BerikanBunga();
-        }
-
-        private void BerikanBunga()
-        {
-            double bungaTahunan = Saldo * (Bunga / 100);
-            Saldo += bungaTahunan;
-        }
-
-        public string InfoTabungan()
-        {
-            return $"Info Rekening Tabungan {Pemilik} - Saldo: {Saldo} - Bunga: {Bunga}%";
-        }
-    }
-    public class RekeningGiro : Rekening
-    {
-        public double Bunga;
-        public DateTime JangkaWaktu;
-
-        public RekeningGiro(string pemilik, double saldo, double bunga, DateTime jangkaWaktu)
-            : base(pemilik, saldo)
-        {
-            Bunga = bunga;
-            JangkaWaktu = jangkaWaktu;
-        }
-
-        public override void Setor(double jumlah)
-        {
-            base.Setor(jumlah);
-            BerikanBunga();
-        }
-
-        private void BerikanBunga()
-        {
-            double bungaBulanan = Saldo * (Bunga / 100 / 12);
-            Saldo += bungaBulanan;
-        }
-
-        public override bool Tarik(double jumlah)
-        {
-
-            if (DateTime.Now <= JangkaWaktu)
+            if (jumlah <= saldo)
             {
-                return base.Tarik(jumlah);
+                saldo -= jumlah;
+                Console.WriteLine($"Penarikan sebesar {jumlah:C} berhasil. Saldo sekarang: {saldo:C}.");
             }
-            return false;
+
+            else if (jumlah > saldo + batasPenarikan)
+            {
+                if (jumlah > batasPenarikan)
+                {
+                    Console.WriteLine("Tidak dapat melakukan penarikan. Penarikan melebihi batas penarikan.");
+                }
+                else
+                {
+                    saldo = (saldo + batasPenarikan) - jumlah; // melakukan perhitungan awal, menjumlah total saldo dengan batas
+                    saldo = saldo - batasPenarikan;
+
+                    Console.WriteLine($"Penarikan sebesar {jumlah:C} berhasil. Penarikan melebihi saldo Anda. Saldo sekarang ${saldo}");
+
+                }
+            }
+            else
+            {
+
+                saldo = (saldo + batasPenarikan) - jumlah; // melakukan perhitungan awal, menjumlah total saldo dengan batas
+                saldo = saldo - batasPenarikan;
+
+                Console.WriteLine($"Penarikan sebesar {jumlah:C} berhasil. Penarikan melebihi saldo Anda. Saldo sekarang ${saldo}");
+
+            }
         }
 
-        public string InfoGiro()
+
+        public override void CekSaldo()
         {
-            return $"Info Rekening Giro {Pemilik} - Saldo: {Saldo} - Bunga: {Bunga}% - Jangka Waktu sampai : {JangkaWaktu} tahun";
+            Console.WriteLine($"Saldo {pemilik}: {saldo:C}");
         }
     }
 }
