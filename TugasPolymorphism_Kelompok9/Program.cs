@@ -1,13 +1,12 @@
 ﻿using Bank;
 using Olshop;
-//using Bank;
 
 class Program
 {
     static void Main(string[] args)
     {
         //Online Shop
-        KeranjangBelanja keranjang = new KeranjangBelanja(5);
+        KeranjangBelanja keranjang = new KeranjangBelanja(3);
         Elektronik laptop = new Elektronik(5, "Razer Blade 18", 95000000);
         Pakaian baju = new Pakaian("T-Shirt Console.WriteLine", 50000);
         Buku komik = new Buku("Monster", 150000);
