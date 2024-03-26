@@ -48,11 +48,9 @@ class Program
         Console.WriteLine($"Total ongkir pada keranjang belanja : {+ totalOngkir:c}");
 
 
-        //Sistem Perbankan
-        
+        //Sistem Perbankan        
         Console.WriteLine("\n == Sistem Perbankan == \n");
 
-        
 
         // Membuat objek RekeningTabungan
         RekeningTabungan tabunganBudi = new RekeningTabungan("Budi", 5000, 0.05);
