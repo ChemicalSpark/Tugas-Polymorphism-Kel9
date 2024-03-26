@@ -87,7 +87,7 @@ namespace Bank
             // Jika jumlah penarikan melebihi batas penarikan
             else if (jumlah > saldo && (saldo - jumlah) < -batasPenarikan)
             {
-                Console.WriteLine($"Tidak dapat melakukan penarikan. Saldo anda telah mencapai batas penarikan. Batas Penarikan anda {batasPenarikan:C}");
+                Console.WriteLine($"Tidak dapat melakukan penarikan. Saldo {pemilik} telah mencapai batas penarikan. Batas Penarikan {batasPenarikan:C}");
             }
         }
 
