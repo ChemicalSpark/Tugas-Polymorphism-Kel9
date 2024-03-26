@@ -1,5 +1,5 @@
 ﻿using Olshop;
-//using Bank;
+using Bank;
 
 class Program
 {
@@ -19,9 +19,57 @@ class Program
         Console.WriteLine($"Dengan total ongkir sebanyak : {+ totalOngkir:c}");
 
         //Sistem Perbankan
+        
+        Console.WriteLine("Sistem Perbankan");
+
+        
+
+        // Membuat objek RekeningTabungan
+        RekeningTabungan tabunganBudi = new RekeningTabungan("Budi", 5000, 0.05);
+
+        // Setoran awal
+        tabunganBudi.Setoran(1000);
+
+        // Cek saldo
+        tabunganBudi.CekSaldo();
+        
+        // Penarikan
+        tabunganBudi.Penarikan(2000);
+
+        // Cek saldo setelah penarikan
+        tabunganBudi.CekSaldo();
+
+        Console.WriteLine();
+
+        // Membuat objek RekeningGiro
+        RekeningGiro giroAni = new RekeningGiro("Ani", 3000, 1000);
+
+        // Setoran awal
+        giroAni.Setoran(2000);
+
+        // Cek saldo
+        giroAni.CekSaldo();
+        
+
+        // Penarikan
+        giroAni.Penarikan(2500);
+
+        // Cek saldo setelah penarikan
+        giroAni.CekSaldo();
+        
+
+
+        // Penarikan melebihi saldo dan batas penarikan
+        giroAni.Penarikan(2500);
+
+        // Cek saldo setelah penarikan
+        giroAni.CekSaldo();
+
+        giroAni.Penarikan(1500);
 
 
         //Aplikasi Menggambar
+
 
 
     }
