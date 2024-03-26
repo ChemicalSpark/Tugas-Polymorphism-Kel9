@@ -72,38 +72,24 @@ namespace Bank
 
         public override void Penarikan(double jumlah)
         {
+            // Jika jumlah penarikan tidak melebihi saldo yang dimiliki
             if (jumlah <= saldo)
             {
                 saldo -= jumlah;
                 Console.WriteLine($"Penarikan sebesar {jumlah:C} berhasil. Saldo sekarang: {saldo:C}.");
             }
-
-            else if (jumlah > saldo + batasPenarikan)
+            // Jika jumlah penarikan melebihi saldo yang dimiliki, tetapi masih dalam batas penarikan
+            else if (jumlah > saldo && (saldo - jumlah) >= -batasPenarikan)
             {
-                if (jumlah > batasPenarikan)
-                {
-                    Console.WriteLine("Tidak dapat melakukan penarikan. Penarikan melebihi batas penarikan.");
-                }
-                else
-                {
-                    saldo = (saldo + batasPenarikan) - jumlah; // melakukan perhitungan awal, menjumlah total saldo dengan batas
-                    saldo = saldo - batasPenarikan;
-
-                    Console.WriteLine($"Penarikan sebesar {jumlah:C} berhasil. Penarikan melebihi saldo Anda. Saldo sekarang ${saldo}");
-
-                }
+                saldo -= jumlah;
+                Console.WriteLine($"Penarikan sebesar {jumlah:C} berhasil. Penarikan melebihi saldo Anda. Saldo sekarang: ${saldo}");
             }
-            else
+            // Jika jumlah penarikan melebihi batas penarikan
+            else if (jumlah > saldo && (saldo - jumlah) < -batasPenarikan)
             {
-
-                saldo = (saldo + batasPenarikan) - jumlah; // melakukan perhitungan awal, menjumlah total saldo dengan batas
-                saldo = saldo - batasPenarikan;
-
-                Console.WriteLine($"Penarikan sebesar {jumlah:C} berhasil. Penarikan melebihi saldo Anda. Saldo sekarang ${saldo}");
-
+                Console.WriteLine($"Tidak dapat melakukan penarikan. Saldo anda telah mencapai batas penarikan. Batas Penarikan anda {batasPenarikan:C}");
             }
         }
-
 
         public override void CekSaldo()
         {

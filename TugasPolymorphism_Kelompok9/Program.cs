@@ -79,6 +79,11 @@ class Program
 
         giroAni.Penarikan(1500);
 
+        giroAni.Penarikan(500);
+
+        // ketika ingin melakukan penarikan melebihi batas
+        giroAni.Penarikan(500);
+
 
         //Aplikasi Menggambar
 
